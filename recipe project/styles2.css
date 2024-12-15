@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f04a;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.main-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px; /* Adds spacing between the fields */
+}
+
+.form-group {
+    flex: 1; /* Ensures fields take up equal space */
+    display: flex;
+    flex-direction: column; /* Keeps label above the input */
+}
+
+
+.flex-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 20px);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
+
+label, input, select, button {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+}
+
+button:hover {
+    background-color: #024005;
+}
+
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    .flex-item {
+        flex: 1 1 100%;
+    }
+}

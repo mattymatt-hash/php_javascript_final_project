@@ -1,0 +1,52 @@
+/* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3, h4 {
+    color: #333;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.flex-item {
+    flex: 1;
+    padding: 20px;
+}
+
+.recipe-list-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.recipe-list-section h3 {
+    cursor: pointer;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #006f8e;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .recipe-list-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

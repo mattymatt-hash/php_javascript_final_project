@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contactformwithemailstyles.css">
+    <script src="wdv341FormHandler-main/contactformwithemail.js"></script>
+</head>   
+<body>
+    <div class="main-container">
+    <form action="contact.php" method="POST" id="contactForm">
+    <fieldset>
+    <label for="name"><i class="fas fa-user"></i> Contact Name:</label>
+                <input type="text" id="name" name="name" required aria-label="Contact Name">
+                
+                <div class="autocomplete-container" id="autocomplete-container"></div>
+    </fieldset>
+                <fieldset>
+                    <legend>Mailing Address</legend>
+                    <label for="address">Street Address:</label>
+                    <input type="text" id="address" name="address" required placeholder="Enter your street address">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required placeholder="Enter your city">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required placeholder="Enter your state">
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" id="zip" name="zip" required placeholder="Enter your zip code">
+                </fieldset>
+                <fieldset>
+                    <label for="reason">Reason for Contact:</label>
+                    <select id="reason" name="reason" required aria-label="Reason for Contact">
+                        <option value="">Select...</option>
+                        <option value="Inquiry">Inquiry</option>
+                        <option value="Support">Support</option>
+                        <option value="Feedback">Feedback</option>
+                    </select>
+                </fieldset>
+                <label for="email"><i class="fas fa-envelope"></i> Contact Email Address:</label>
+                <input type="email" id="email" name="email" required aria-label="Contact Email Address">
+            </fieldset>
+                <fieldset>
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments" rows="5" maxlength="300" required aria-label="Comments"></textarea>
+            </fieldset>
+                <fieldset>
+                    <div class="date-time">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required aria-label="Select a date">
+    
+                        <label for="time">Date:</label>
+                        <input type="time" id="time" name="time" required aria-label="Select the time">
+                    </div>
+           <!-- Honeypot field (hidden from users) -->
+             <input type="text" name="honeypot" style="display:none" value="">
+                    <button type="submit">Submit</button>
+                    <button type="reset">Clear Page</button>
+                </form>
+            </fieldset>
+            <footer class="footer custom-bg text-white">
+                <div class="container d-flex align-items-center justify-content-center position-relative">
+                    <!-- Copyright -->
+                    <p id="copyright" class="m-0"></p>
+                </div>
+            </footer>
+        </body>
+          
+        </html>

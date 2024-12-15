@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Recipe</title>
+   
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('recipe project/images/background/background.png') center/cover no-repeat;
+        color: #333;
+        }
+        /* Basic Styles */
+       .banner {                       
+            background-image: url('recipe project/images/banner/my-recipe-card_66051949.png'); /* banner image file */
+            background-size: cover; /* Makes the image cover the entire banner */
+            background-position: center; /* Centers the image */
+            height: 300px; /* Adjust the height of the banner */
+            position: relative; /* Important for positioning child elements */
+           align-items: end; /* Align content in the center vertically */
+            display: flex;
+            justify-content: left; /* Align content to the left horizontally */
+            color: white; /* White text for contrast */
+            font-size: 26px; /* Text size */
+            font-family: Arial, sans-serif; /* Font style */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow for better readability */
+            
+        
+        }
+        input, textarea, button, select {
+            width: 90%; /* Adjust width to add space around the input */
+            padding: 10px;
+            margin: 10px auto; /* Center the input fields */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: block;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #c9c7c7;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+        .spice-button {
+            background-color: #ddd;
+        }
+        .spice-button:hover {
+            background-color: #bbb;
+        }
+        .spice-button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .spice-level-display {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+          
+        }
+       
+        h2  {
+            color: #333;
+            text-align: center;
+        }
+        label, p {
+            font-weight: bold;
+        }
+        .h5 {
+        text-align: center;
+      
+       }
+        
+        button, #view-recipe-button footer {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            width: 32%;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover, #view-recipe-button:hover {
+            background-color: #45a049;
+        }
+        #log-out-button {
+            background-color: #f44336;
+        }
+        #log-out-button:hover {
+            background-color: #e53935;
+        }
+        #view-recipe-button {
+            background-color: #2196F3;
+        }
+        #view-recipe-button:hover {
+            background-color: #1976D2;
+        }
+        #image-preview {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Spice Button Styles */
+        .spice-button[data-level="No Heat"] {
+            background-color: #2196F3; /* Blue */
+        }
+        .spice-button[data-level="Mild"] {
+            background-color: #4CAF50; /* Green */
+        }
+        .spice-button[data-level="Medium"] {
+            background-color: #FF9800; /* Orange */
+        }
+        .spice-button[data-level="Hot"] {
+            background-color: #FF5722; /* Dark Orange */
+        }
+        .spice-button[data-level="Hell"] {
+            background-color: #F44336; /* Red */
+        }
+
+        /* Hover Effects */
+        .spice-button:hover {
+            filter: brightness(1.2); /* Brightens the color slightly on hover */
+        }
+
+        /* Active (Selected) Button Style */
+        .spice-button.active {
+            border: 2px solid #000; /* Add a border to emphasize selection */
+            transform: scale(1.05); /* Slightly increase size */
+        }
+     
+    
+        @media (max-width: 768px) {
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            button {
+                width: 100%;
+            }
+        }
+        </style>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    let ingredientCount = 1;
+    let instructionCount = 1;
+    let selectedSpiceLevel = null;
+    let base64Image = null;
+
+    const spiceButtons = document.querySelectorAll('.spice-button');
+    const spiceDisplay = document.getElementById('spice-level-display');
+      
+    // Spice level selection
+    spiceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            spiceButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            selectedSpiceLevel = button.getAttribute('data-level');
+            spiceDisplay.textContent = `Selected: ${selectedSpiceLevel}`;
+            spiceDisplay.style.color = window.getComputedStyle(button).backgroundColor;
+        });
+    });
+
+    // Image upload with Base64 encoding
+    document.getElementById('recipe-image').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                base64Image = reader.result;
+                document.getElementById('image-preview').src = base64Image;
+                document.getElementById('image-preview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Add ingredient
+    document.getElementById('add-another-ingredient').addEventListener('click', function () {
+        ingredientCount++;
+        const container = document.getElementById('ingredients-container');
+        const div = document.createElement('div');
+        div.className = 'ingredient';
+        div.id = `ingredient-${ingredientCount}`;
+        div.innerHTML = `
+            <label for="ingredient-name-${ingredientCount}">Ingredient ${ingredientCount} Name:</label>
+            <input type="text" id="ingredient-name-${ingredientCount}" placeholder="Enter Ingredient Name" required>
+            <label for="ingredient-amount-${ingredientCount}">Amount:</label>
+            <input type="text" id="ingredient-amount-${ingredientCount}" placeholder="Enter Amount" required>
+            <label for="ingredient-unit-${ingredientCount}">Unit:</label>
+            <input type="text" id="ingredient-unit-${ingredientCount}" placeholder="Enter Unit" required>
+            <button type="button" class="remove-button">Remove Ingredient</button>
+        `;
+        container.appendChild(div);
+
+        const removeButton = div.querySelector('.remove-button');
+        removeButton.addEventListener('click', function () {
+            div.remove();
+        });
+    });
+
+    // Add instruction
+    document.getElementById('add-another-instruction').addEventListener('click', function () {
+        instructionCount++;
+        const container = document.getElementById('instructions-container');
+        const div = document.createElement('div');
+        div.className = 'instruction';
+        div.id = `instruction-${instructionCount}`;
+        div.innerHTML = `
+            <label for="instruction-${instructionCount}">Instruction Step ${instructionCount}:</label>
+            <input type="text" id="instruction-${instructionCount}" placeholder="Enter Instruction Step" required>
+            <button type="button" class="remove-button">Remove Instruction</button>
+        `;
+        container.appendChild(div);
+
+        const removeButton = div.querySelector('.remove-button');
+        removeButton.addEventListener('click', function () {
+            div.remove();
+        });
+    });
+
+    // Form submission
+    document.getElementById('recipe-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Validate spice level selection
+        if (!selectedSpiceLevel) {
+            alert('Please select a spice level!');
+            return;
+       
+        }
+
+        // Validate required fields
+        const requiredFields = document.querySelectorAll('#recipe-form input[required]');
+        let valid = true;
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                valid = false;
+                field.style.borderColor = 'red';
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+
+        if (!valid) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Collect recipe data
+        const recipe = {
+            name: document.getElementById('recipe-name').value,
+            owner: document.getElementById('recipe-owner').value,
+            difficulty: document.getElementById('difficulty').value,
+            servings: document.getElementById('servings').value,
+            prepTime: document.getElementById('prep-time').value,
+            image: base64Image,
+            spiceLevel: selectedSpiceLevel,
+            ingredients: [],
+            instructions: []
+        };
+
+        for (let i = 1; i <= ingredientCount; i++) {
+            const name = document.getElementById(`ingredient-name-${i}`).value;
+            const quantity = document.getElementById(`ingredient-amount-${i}`).value;
+            const unit = document.getElementById(`ingredient-unit-${i}`).value;
+            recipe.ingredients.push({ name, quantity, unit });
+        }
+
+        for (let i = 1; i <= instructionCount; i++) {
+            const step = document.getElementById(`instruction-${i}`).value;
+            recipe.instructions.push(step);
+        }
+        try {
+        const existingRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        existingRecipes.push(recipe);
+        localStorage.setItem('recipes', JSON.stringify(existingRecipes));
+        alert('Recipe submitted successfully!');
+        this.reset();
+        document.getElementById('image-preview').style.display = 'none';
+        spiceDisplay.textContent = 'No selection yet';
+    } catch (e) {
+        alert('Error saving the recipe. Please try again.');
+    }
+   
+   
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+            const currentYear = new Date().getFullYear();
+            document.getElementById('copyright').innerHTML = `&copy; ${currentYear} Cook-it`;
+        });
+
+
+    </script>
+
+ </head>
+<body>
+   
+    <h2>Create a New Recipe</h2>
+   
+
+   
+    <form id="recipe-form" novalidate>
+        <h5>This form is for private recipes you do not wish to share. to add recipes and make them available for all to see please <a href="cookit!publicfoodform.php" class="button">Go to public Recipe Form.</a></h5>
+        <div>
+            <label for="recipe-name">Recipe Name:</label>
+            <input type="text" id="recipe-name" placeholder="Enter Recipe Name" required>
+        </div>
+        <div>
+            <label for="recipe-owner">Recipe Owner's Name:</label>
+            <input type="text" id="recipe-owner" placeholder="Whose recipe is this?" required>
+        </div>
+        <div>
+            <label for="difficulty">Difficulty:</label>
+            <select id="difficulty" name="difficulty" required>
+                <option value="">Select Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <div>
+            <label for="servings">Number of Servings:</label>
+            <input type="number" id="servings" placeholder="Enter Number of Servings" min="1" required>
+        </div>
+        <div>
+            <label for="prep-time">Preparation Time (in minutes):</label>
+            <input type="text" id="prep-time" placeholder="Enter Preparation Time" min="1" required>
+        </div>
+       <div>
+            <label>Spice Level:</label>
+           
+            <div id="spice-buttons">
+                <button type="button" class="spice-button" data-level="No Heat">No Heat</button>
+                <button type="button" class="spice-button" data-level="Mild">Mild</button>
+                <button type="button" class="spice-button" data-level="Medium">Medium</button>
+                <button type="button" class="spice-button" data-level="Hot">Hot</button>
+                <button type="button" class="spice-button" data-level="Hell">Hell</button>
+            </div>
+            <div class="spice-level-display" id="spice-level-display">No selection yet</div>
+        </div>
+        <div>
+            <label for="recipe-image">Recipe Image (Upload):</label>
+            <input type="file" id="recipe-image" accept="image/*" required>
+            <img id="image-preview" src="" alt="Image Preview">
+        </div>
+       <div id="ingredients-container">
+            <div class="ingredient" id="ingredient-1">
+                <label for="ingredient-name-1">Ingredient 1 Name:</label>
+                <input type="text" id="ingredient-name-1" placeholder="Enter Ingredient Name" required>
+                <label for="ingredient-amount-1">Amount:</label>
+                <input type="text" id="ingredient-amount-1" placeholder="Enter Amount" required>
+                <label for="ingredient-unit-1">Unit:</label>
+                <input type="text" id="ingredient-unit-1" placeholder="Enter Unit (e.g., cup, tsp)" required>
+                <button type="button" class="remove-button">Remove Ingredient</button>
+            </div>
+        </div>
+        <button type="button" id="add-another-ingredient">Add Another Ingredient</button>
+        <div id="instructions-container">
+            <div class="instruction" id="instruction-1">
+                <label for="instruction-1">Instruction Step 1:</label>
+                <input type="text" id="instruction-1" placeholder="Enter Instruction Step" required>
+                <button type="button" class="remove-button">Remove Instruction</button>
+            </div>
+        </div>
+       
+        <button type="button" id="add-another-instruction">Add Another Instruction</button>
+       
+        <!-- Honeypot field (hidden from users) -->
+    <input type="text" name="honeypot" style="display:none" value="">
+        
+        <div class="button-container2">
+            <button type="submit">Submit Recipe</button>
+            <a href="cookit!index.php">
+            <button type="button" id="log-out-button">Log Out</button>
+        </a>
+            <a href="cookit!profile.html">
+                <button type="button" id="view-recipe-button">View Recipes</button>
+            </a>
+    </div>
+    
+    </form>
+    <section>
+
+
+
+
+  </section>
+</body>
+
+<footer class="footer">
+    
+        <!-- Copyright -->
+        <p id="copyright"></p><p> Questions problems or concerns please contact us <a href="contactus.html">here.</a>  </p>
+    </div>
+</footer>
+
+</html>
