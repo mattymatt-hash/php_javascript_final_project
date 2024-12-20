@@ -1,0 +1,345 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('recipe project/images/background/background.png') center/cover no-repeat;
+    color: #333;
+}
+
+.banner {                       
+    background-image: url('recipe project/images/banner/my-recipe-card_66051949.png'); /* banner image file */
+    background-size: cover; /* Makes the image cover the entire banner */
+    background-position: center; /* Centers the image */
+    height: 300px; /* Adjust the height of the banner */
+    position: relative; /* Important for positioning child elements */
+   align-items: end; /* Align content in the center vertically */
+    display: flex;
+    justify-content: left; /* Align content to the left horizontally */
+    color: white; /* White text for contrast */
+    font-size: 26px; /* Text size */
+    font-family: Arial, sans-serif; /* Font style */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow for better readability */
+    
+}
+
+h2, h3, h4, h5, h6 {
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.flex-item {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.friendlyDate {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    font-size: 16px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ff9123;
+}
+
+.flex-containerbio {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.bio-section, .friendfeed-section {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: wheat;
+}
+
+.recipe-list-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+.recipe-detail {
+    padding: 20px;
+    border: 1px solid #ddd;
+    text-align: center;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    background-color: #f58617;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fcab3a;
+    border: none;
+    cursor: pointer;
+}
+.recipe-list-section h3 {
+    cursor: pointer;
+    text-align: center; 
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.recipe-detail {
+   padding: 20px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    background-color: #f58617;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+     }
+
+button:hover {
+    background-color: #fcab3a;
+    border: none;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .recipe-list-section {
+        grid-template-columns: repeat(3, 1fr);
+        display: block;
+        text-align: center; 
+    }
+}
+
+/* Recipe Buttons */
+.recipe-button {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    justify-content: space-evenly;
+}
+
+/* Log Out Button */
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #006f8e;
+}
+
+/* Bio Section with Border */
+.bio-section   {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: wheat;
+    flex: 1; /* Ensures it takes equal width if needed */
+    align-items: stretch;  /*Ensures it takes equal height*/
+}
+
+.friendfeed-section   {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: wheat;
+    flex: 1; /* Ensures it takes equal width if needed */
+    align-items: stretch;  /*Ensures it takes equal height*/
+}
+
+.friendlyDate {
+    position: absolute;
+bottom: 5px; /* Distance from the bottom of the banner */
+left: 10px;   /* Distance from the left of the banner */
+font-size: 16px; /* Adjust text size as needed */
+/* color: white;  Ensure it's visible on the background */
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Optional for readability */
+}
+
+
+
+
+
+.bio-section p {
+    margin: 10px 0;
+}
+/* Search Bar Style */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ff9123;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+.center-heading {
+text-align: center;
+margin: 20px 0; /* Adjust top and bottom margins as needed */
+} 
+
+/* Modal Styles */
+.modal {
+display: none; /* Hidden by default */
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+background-color: white;
+margin: 15% auto;
+padding: 20px;
+border-radius: 10px;
+width: 80%;
+max-width: 500px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.close-btn {
+float: right;
+font-size: 1.5em;
+font-weight: bold;
+cursor: pointer;
+}
+.close-btn:hover {
+color: red;
+}
+#ingredientsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #006f8e;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    float: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}

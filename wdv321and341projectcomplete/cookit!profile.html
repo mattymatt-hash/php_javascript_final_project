@@ -1,0 +1,673 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Home</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('recipe project/images/background/background.png') center/cover no-repeat;
+        color: #333;
+        }
+        /* Basic Styles */
+       .banner {                       
+            background-image: url('recipe project/images/banner/my-recipe-card_66051949.png'); /* banner image file */
+            background-size: cover; /* Makes the image cover the entire banner */
+            background-position: center; /* Centers the image */
+            height: 300px; /* Adjust the height of the banner */
+            position: relative; /* Important for positioning child elements */
+           align-items: end; /* Align content in the center vertically */
+            display: flex;
+            justify-content: left; /* Align content to the left horizontally */
+            color: white; /* White text for contrast */
+            font-size: 26px; /* Text size */
+            font-family: Arial, sans-serif; /* Font style */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a shadow for better readability */
+            
+        }
+       
+        h2, h3, h4, h5, h6 {
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+
+    
+
+
+        .flex-containerbio {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+        
+        }
+
+        .flex-item {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .recipe-list-section {
+            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            text-align: center; 
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .recipe-list-section h3 footer {
+            cursor: pointer;
+            text-align: center; 
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .recipe-detail {
+           padding: 20px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            background-color: #f58617;
+            color: white;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+             }
+
+        button:hover {
+            background-color: #fcab3a;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .recipe-list-section {
+                grid-template-columns: repeat(3, 1fr);
+                display: block;
+                text-align: center; 
+            }
+        }
+
+        /* Recipe Buttons */
+        .recipe-button {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            justify-content: space-evenly;
+        }
+
+        /* Log Out Button */
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #008cba;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #006f8e;
+        }
+
+        /* Bio Section with Border */
+        .bio-section   {
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: wheat;
+            flex: 1; /* Ensures it takes equal width if needed */
+            align-items: stretch;  /*Ensures it takes equal height*/
+        }
+       
+        .friendfeed-section   {
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: wheat;
+            flex: 1; /* Ensures it takes equal width if needed */
+            align-items: stretch;  /*Ensures it takes equal height*/
+        }
+
+ .friendlyDate {
+            position: absolute;
+    bottom: 5px; /* Distance from the bottom of the banner */
+    left: 10px;   /* Distance from the left of the banner */
+    font-size: 16px; /* Adjust text size as needed */
+    /* color: white;  Ensure it's visible on the background */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Optional for readability */
+    }
+        
+        
+        
+         .bio-section p {
+            margin: 10px 0;
+        }
+  /* Search Bar Style */
+  .search-bar {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff9123;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+        }
+        .center-heading {
+    text-align: center;
+    margin: 20px 0; /* Adjust top and bottom margins as needed */
+} 
+
+</style>
+
+  <script>
+ 
+ document.addEventListener("DOMContentLoaded", function() {
+            const currentYear = new Date().getFullYear();
+            document.getElementById('copyright').innerHTML = `&copy; ${currentYear} Cook-it`;
+        });
+ 
+// Utility Functions
+ function displayFriendlyDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('friendlyDate').textContent = new Date().toLocaleDateString('en-US', options);
+        }
+ 
+function searchFunction() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        const searchQuery = document.getElementById('search-input').value.toLowerCase();
+        const recipeList = document.getElementById('recipe-list');
+
+        recipeList.forEach(function(recipe) {
+            const title = recipe.querySelector('.recipe-title').innerText.toLowerCase();
+            if (title.includes(searchQuery)) {
+                recipe.style.display = '';
+            } else {
+                recipe.style.display = 'block';
+            }
+        });
+    }, 300); // Delay to handle rapid keystrokes
+}
+
+      // Function to display basic recipe info and show "view details" button
+function displayRecipeInfo(recipe) {
+    const container = document.getElementById('recipe-container');
+    container.innerHTML = `
+        <h3>${recipe.name}</h3>
+        <p>${recipe.description}</p>
+        <button onclick="showRecipeDetails('${recipe.id}')">View Details</button>
+    `;
+}
+// Show Recipe Details
+function viewRecipe(index) {
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const recipe = recipes[index];
+    const recipeDetail = document.getElementById('recipe-detail');
+     
+    recipeDetail.innerHTML = `
+        <div class="recipe-content">
+            <h2>${recipe.name}</h2>
+            <h5>
+                <img src="${recipe.image}" alt="${recipe.name}" width="200">
+            </h5>
+            <section>
+                <p><strong>Servings:</strong> ${recipe.servings}</p>
+                <p><strong>Preparation Time (In Minutes):</strong> ${recipe.prepTime}</p>
+                <p><strong>Difficulty:</strong> ${recipe.difficulty}</p>
+            </section>
+            
+            <label for="servingSelector">Choose Recipe Size:</label>
+            <select id="servingSelector">
+                <option value="1">Normal Quantity (1x)</option>
+                <option value="0.5">Half Quantity (0.5x)</option>
+                <option value="2">Double Quantity (2x)</option>
+            </select>           
+
+             <h3>Ingredients</h3>
+            <ul id="ingredients-list">
+                ${recipe.ingredients.map(ingredient => {
+                    const baseQuantity = ingredient.quantity || 1;
+                    return `
+                        <li class="ingredient" data-base-quantity="${baseQuantity}">
+                            ${baseQuantity} ${ingredient.name}
+                        </li>
+                    `;
+                }).join('')}
+            </ul>
+            
+            <h3>Instructions</h3>
+            <section>
+                <ol>
+                    ${recipe.instructions && recipe.instructions.length > 0
+                        ? recipe.instructions.map(step => `<li>${step}</li>`).join('')
+                        : '<li>No instructions provided.</li>'}
+                </ol>
+            </section>
+
+           
+        </div>
+            
+          `;
+
+    // Update ingredients based on selected serving size
+    updateIngredients(recipeId);
+    recipeDetail.style.display = 'block';
+}
+
+function updateIngredients(recipeId) {
+    const multiplier = parseFloat(document.getElementById('servingSelector').value) || 1;
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const recipe = recipes.find(r => r.id === recipeId);
+    const ingredientsList = document.getElementById('ingredients-list');
+
+    ingredientsList.innerHTML = recipe.ingredients.map(ingredient => {
+       const baseQuantity = ingredient.quantity || 1;
+        const newQuantity = (baseQuantity * multiplier).toFixed(2);
+        return `
+            <li class="ingredient" data-base-quantity="${baseQuantity}">
+                ${newQuantity} ${ingredient.name}
+            </li>
+        `;
+    }).join('');
+}
+
+  window.onload = function() {
+    let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const recipeList = document.getElementById('recipe-list');
+    recipes.sort((a, b) => a.name.localeCompare(b.name));
+    localStorage.setItem('recipes', JSON.stringify(recipes));
+
+    if (recipes.length === 0) {
+        recipeList.innerHTML = '<p>No recipes available.</p>';
+    } else {
+        recipes.forEach((recipe, index) => {
+            const recipeElement = document.createElement('div');
+            recipeElement.innerHTML = `
+                <h3 onclick="viewRecipe(${index})">${recipe.name}</h3>
+                <img src="${recipe.image}" alt="${recipe.name}" width="100">
+            `;
+            recipeList.appendChild(recipeElement);
+        });
+    }
+
+// Populate data when window is loaded
+    displayFriendlyDate();
+    populatePublicRecipes();
+};
+
+
+function populatePublicRecipes() {
+            const publicRecipes = JSON.parse(localStorage.getItem('publicRecipes')) || [];
+            const publicRecipesList = document.getElementById('public-recipes-list');
+            if (publicRecipes.length === 0) {
+                publicRecipesList.innerHTML = '<p>No public recipes available.</p>';
+            } else {
+                publicRecipes.forEach(recipe => {
+    const recipeElement = document.createElement('div');
+    recipeElement.innerHTML = `<h4>${recipe.name}</h4>
+                               <img src="${recipe.image}" alt="${recipe.name}" width="100">`; 
+    publicRecipesList.appendChild(recipeElement);
+});
+
+            }
+        }
+    
+        // Toggle sections
+     ingredientsToggle.onclick = () => toggleSection(ingredientsContent);
+        instructionsToggle.onclick = () => toggleSection(instructionsContent);
+      
+        function toggleRecipes(type) {
+        // Hide all sections
+       
+        document.getElementById('public-recipes-section').style.display = 'block';
+        document.getElementById('private-recipes-section').style.display = '';
+    
+        // Show the selected section
+         if (type === 'public') {
+            document.getElementById('public-recipes-section').style.display = 'block';
+        } else if (type === 'private') {
+            document.getElementById('private-recipes-section').style.display = 'block';
+        }
+    }
+    function viewRecipe(index) {
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const recipe = recipes[index];
+    const recipeDetail = document.getElementById('recipe-detail');
+     
+    recipeDetail.innerHTML = `
+        <div class="recipe-content">
+            <h2>${recipe.name}</h2>
+           <h5>
+            <img src="${recipe.image}" alt="${recipe.name}" width="200">
+           </h5>
+            <section>
+           <p><strong>Servings:</strong> ${recipe.servings}</p>
+            <p><strong>Preparation Time (In Minutes):</strong> ${recipe.prepTime}</p>
+            <p><strong>Difficulty:</strong> ${recipe.difficulty}</p>
+         </section>
+            </h5>
+          
+          <label for="servingSelector"></label>
+<select id="servingSelector">
+               <option value="">Choose Recipe Size</option>
+                <option value="1">Normal Quantity (1x)</option>
+                <option value="0.5">Half Quantity (0.5x)</option>
+                <option value="2">Double Quantity (2x)</option>
+</select>           
+        </h5>
+
+<div>
+  <h3>Ingredients</h3>
+  <ul>
+    ${recipe.ingredients.map(ingredient => {
+      // Set a default quantity of 1 if not provided
+      const baseQuantity = ingredient.quantity || 1;
+      return `
+        <li class="ingredient" data-base-quantity="${baseQuantity}">
+          ${baseQuantity} ${ingredient.name}
+        </li>
+      `;
+    }).join('')} <!-- Join all list items into a single string -->
+  </ul>
+</div>
+  <h3>Instructions</h3>
+  <section>
+    <ol>
+      ${recipe.instructions && recipe.instructions.length > 0
+        ? recipe.instructions.map(step => `<li>${step}</li>`).join('') // Map instructions to list items
+        : '<li>No instructions provided.</li>'} <!-- Handle case when instructions are missing -->
+    </ol>
+  </section>
+
+  <!-- Action Buttons -->
+  <button onclick="editRecipe(${index})">Edit Recipe</button>
+  <button onclick="deleteRecipe(${index})">Delete Recipe</button>
+  <button onclick="goBack()">Close Recipe</button>
+</div>
+
+`;
+
+   
+recipeDetail.style.display = 'block';
+    document.getElementById('private-recipes-section').style.display = 'none';
+    }
+  
+    const servingSelector = document.getElementById('servingSelector');
+if (servingSelector) {
+    // Add event listener for serving selector
+    servingSelector.addEventListener('change', function () {
+        const scale = parseFloat(this.value) || 1;
+
+        // Loop through all ingredient elements
+        document.querySelectorAll('.ingredient').forEach(ingredient => {
+            const baseQuantity = parseFloat(ingredient.dataset.baseQuantity) || 1; // Default to 1 if not set
+
+            // Calculate the new quantity of ingredients
+            const newQuantity = (baseQuantity * scale).toFixed(2);
+
+            // Split the ingredient text to separate quantity from the ingredient name
+            const ingredientText = ingredient.textContent.trim();
+            const quantityAndName = ingredientText.split(' ');
+            const ingredientName = quantityAndName.slice(1).join(' '); // Get the ingredient name after quantity
+
+            // Update the ingredient text with new quantity and name
+            ingredient.textContent = `${newQuantity} ${ingredientName}`;
+        });
+    });
+}
+    
+// Delete a recipe
+function deleteRecipe(index) {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+    let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    recipes.splice(index, 1); // Remove the recipe at the specified index
+    localStorage.setItem('recipes', JSON.stringify(recipes));
+    alert('Recipe deleted successfully!');
+    goBack();
+}
+}
+// Edit a recipe
+function editRecipe(index) {
+    let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const recipe = recipes[index];
+    window.location.href = `editRecipe.html?index=${index}&name=${encodeURIComponent(recipe.name)}`;
+}
+
+ 
+  // Go back to the recipe list
+function goBack() {
+    document.getElementById('recipe-detail').style.display = 'none';
+    document.getElementById('private-recipes-section').style.display = 'block';
+}
+
+      function logoutbutton() {
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            window.location.href = 'cookit!index.html';
+        });
+    }
+}
+    
+ document.addEventListener('DOMContentLoaded', () => {
+    displayFriendlyDate();
+    populateRecipes();
+});
+ // Function to confirm and delete account
+ function deleteAccount() {
+        // Confirm if the user really wants to delete the account
+        if (confirm("Are you sure you want to delete your account? This action is irreversible.")) {
+            // If confirmed, send a POST request to the delete PHP script
+            window.location.href = 'delete_account.php'; // Redirect to the PHP script that will handle the deletion
+        }
+    }
+
+</script>
+
+</head>
+<body>
+   
+    <div class="banner">
+        <span id="friendlyDate"></span>
+    </div>  
+    <!-- Search Bar Section -->
+    <div class="search-bar">
+        <input type="text" class="search-input" id="search-input" placeholder="Search for recipes..." onkeyup="searchFunction()">
+    </div>
+    <div class="recipe-button">
+        <a href="friends.html"><button id="friends">Your Chef Circle</button></a>
+        <button onclick="document.getElementById('public-recipes-section').scrollIntoView({ behavior: 'smooth' });">Recipes</button>
+        <a href="cookit!foodform.html"><button>Create a New Recipe</button></a>
+        <a href="cookit!index.php"><button id="logout-button">Log Out</button></a>
+      
+        <button onclick="deleteAccount()" id="delete-account-button">Delete Account</button>
+    </div>
+    
+   
+   <div class="flex-containerbio"> <!--main-layout-->
+        <!-- Profile Picture and Bio Section -->
+         <div class="bio-section">
+                <!--<img src="profile.jpg" alt="Profile Picture" id="profile-image">-->
+                <p class="bio">Chef's Bio: your name</p>
+                <p class="bio">Age: 30</p>
+                <p class="bio">Years Cooking: 10</p>
+                <p class="bio">Job: Professional Chef</p>
+                <p class="bio">Favorite Cooking Things: Baking, Grilling, Sautéing</p>
+            </div>
+        <div class="friendfeed-section">
+       <p>Now Trending</p>
+ </div>
+   </div>
+
+           
+<section>
+
+<!-- Public Recipes Section -->
+<h2 id="publicrecipe" class="center-heading">
+    Public Recipes A-Z
+    <a href="morepublicrecipes.php" class="view-details-btn">More Public Recipes Here</a>
+</h2>
+<div class="flex-item"></div> 
+   
+      <section>
+   <h3>
+      <p>
+    <div class="a">
+        <h3>Spaghetti Bolognese</h3>
+        <img src="images/Screenshot 2024-12-13 054625.png" alt="Spaghetti Bolognese" class="recipe-image" height="200" width="200" />
+        <p>A classic Italian dish with ground beef, and rich sauce.</p>
+        <button class="view-details-btn" data-recipe="1">View Details</button>
+    
+       
+        </div>
+   
+        <div class="recipe-card">
+            <h3>Chicken Alfredo</h3>
+            <img src="images/Screenshot 2024-12-13 054751.png" alt="Chicken Alfredo" class="recipe-image" height="200" width="200"/>
+            <p>A creamy pasta dish with grilled chicken and Alfredo sauce.</p>
+            <button class="view-details-btn" data-recipe="2">View Details</button>
+        
+           
+            </div>
+        </div>
+    </p> 
+</h3>
+</section>
+<section>
+<h3>
+    <p>
+    <div class="recipe-card">
+            <h3>Vegetable Stir-Fry</h3>
+            <img src="images/Screenshot 2024-12-13 054857.png" alt="Vegetable Stir-Fry" class="recipe-image"  height="150" width="150"/>
+            <p>A healthy stir-fry with a mix of fresh vegetables and soy sauce.</p>
+            <button>View Details</button>
+       </div>
+  
+       <div class="recipe-card">
+        <h3>Beef Tacos</h3>
+        <img src="images/Screenshot 2024-12-13 055009.png" alt="Beef Tacos" class="recipe-image"  height="150" width="150"/>
+        <p>Delicious tacos with seasoned ground beef, fresh toppings, and a tasty taco shell.</p>
+        <button>View Details</button>
+    </div>
+</p>
+</h3>
+</section>
+</div>
+</div>
+
+</section>
+
+<section>
+
+    <!-- Private Recipes Section -->
+<h2 id="privaterecipe" class="center-heading">Private Recipes A-Z</h2>
+<div class="flex-item" id="private-recipes-section">
+    <div class="recipe-list-section" id="recipe-list">
+        <!-- Private recipes content here -->
+    </div>
+</div>
+</section>  
+  <!-- Recipe Detail View -->
+      
+  <section>
+  <h5>
+  <div id="recipe-detail" style="display: none;"></div>
+             <!-- This will dynamically show recipe details -->
+                </select>
+            </p>
+        </div>
+   </h5>
+    </section>
+   
+ <!-- Recipe Detail View -->
+ <section>
+    <h5>
+        <div id="recipe-container">
+           <!-- Dynamically populated recipe content will appear here -->
+           
+                
+               <div class="ingredients">
+                    <div class="section-toggle" id="ingredients-toggle" style="display: none;">Ingredients</div>
+                    <div class="section-content" id="ingredients-content"></div>
+                </div>
+            
+                <div class="instructions">
+                    <div class="section-toggle" id="instructions-toggle" style="display: none;">Instructions</div>
+                    <div class="section-content" id="instructions-content"></div>
+               </div>
+       
+    </h5>
+</section>
+
+
+</body>
+
+<footer class="footer custom-bg text-white">
+    <div class="container d-flex align-items-center justify-content-center position-relative">
+        <!-- Copyright -->
+       <h5> <p id="copyright" class="m-0"></p></h5>
+    </div>
+</footer>
+
+
+
+</html>

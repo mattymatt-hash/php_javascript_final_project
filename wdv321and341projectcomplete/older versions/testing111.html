@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Home</title>
+    <link rel="stylesheet" href="styles111.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="banner">
+        <span id="friendlyDate"></span>
+    </div>
+
+    <!-- Search Bar Section -->
+    <div class="search-bar">
+        <input type="text" id="search-input" class="search-input" oninput="searchFunction()">
+    </div>
+
+    <!-- Recipe Buttons Section -->
+    <div class="recipe-button">
+        <a href="friends.html"><button id="friends">Your Chef Circle</button></a>
+        <button onclick="document.getElementById('public-recipes-section').scrollIntoView({ behavior: 'smooth' });">Public Recipes</button>
+        <button onclick="document.getElementById('private-recipes-section').scrollIntoView({ behavior: 'smooth' });">Private Recipes</button>
+        <a href="cookit!foodform.html"><button>Create a New Recipe</button></a>
+        <a href="cookit!index.php"><button id="logout-button">Log Out</button></a>
+        <button onclick="deleteAccount()" id="delete-account-button">Delete Account</button>
+    </div>
+
+    <!-- Profile and Bio Section -->
+    <div class="flex-containerbio">
+        <div class="bio-section">
+            <!--<img src="profile.jpg" alt="Profile Picture" id="profile-image">-->
+            <p class="bio">Chef's Bio: Your Name</p>
+            <p class="bio">Age: 30</p>
+            <p class="bio">Years Cooking: 10</p>
+            <p class="bio">Job: Professional Chef</p>
+            <p class="bio">Favorite Cooking Things: Baking, Grilling, Sautéing</p>
+        </div>
+        <div class="friendfeed-section">
+            <p>Now Trending</p>
+            <!-- Friend feed data will be here -->
+        </div>
+    </div>
+
+    <!-- Public Recipes Section -->
+    <section>
+        <h2 id="Publicrecipe" class="center-heading">Public Recipes A-Z</h2>
+        <div class="flex-item" id="public-recipes-section">
+            <div id="public-recipes-list">
+                <!-- Public recipes content here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Recipes Section -->
+    <section>
+        <h2 id="privaterecipe" class="center-heading">Private Recipes A-Z</h2>
+        <div class="flex-item" id="private-recipes-section">
+            <div class="recipe-list-section" id="recipe-list">
+                <!-- Private recipes content here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Detail View -->
+    <section>
+        <div id="recipe-detail" style="display: none;"></div> <!-- Dynamically show recipe details -->
+        <ul id="recipeList"></ul>
+
+        <!-- Modal for Ingredients -->
+        <div id="ingredientsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Ingredients</h2>
+                <ul id="ingredientsList">
+                    <!-- Dynamically populated ingredients here -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script src="scripts.js111"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
